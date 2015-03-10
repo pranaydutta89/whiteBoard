@@ -1,0 +1,49 @@
+
+
+@media screen and (min-width: 200px) {
+
+    .header{
+        font-size:1.1em;
+        background-color:#d9edf7 ;
+        padding:1rem;
+
+    }
+
+
+    .heading-big-thin-medium {
+        font-size: 2rem;
+    }
+
+
+    .flexible-general-label-header {
+        font-size: 1.0em;
+    }
+
+
+    .flexible-general-text {
+        font-size: 0.75em;
+    }
+}
+@media screen and (min-width: 801px) {
+
+    .header{
+        font-size:2em;
+        background-color:#d9edf7 ;
+        padding:1rem;
+
+    }
+
+    .heading-big-thin-medium {
+        font-size: 5rem;
+    }
+
+    .flexible-general-label-header {
+        font-size: 1.5em;
+    }
+
+
+    .flexible-general-text {
+        font-size: 1.0em;
+    }
+}
+

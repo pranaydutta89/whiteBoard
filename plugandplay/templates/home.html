@@ -1,0 +1,87 @@
+﻿<div class="row">
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <div class="pad-a-1">
+
+            <div class="box">
+                <div class="text-center">
+                    <div class="col-lg-12 pad-a-1 background-yellow ">
+                        <strong>Online User</strong>
+                    </div>
+                </div>
+
+                <div ng-repeat="user in userList">
+                    <span class="pad-a-1" ng-bind="user.userName" title="Joined at: {{user.addedDateTime | date:'shortTime'}}">
+
+                    </span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="pad-a-1">
+            <div class="text-center">
+                <div class="col-lg-12 pad-a-1 background-yellow ">
+                    <strong>Messages</strong>
+                </div>
+            </div>
+            <div scroll-glue class="containerChatBox box">
+
+                <div class="chat-box">
+                    <div ng-if="!(messageList && messageList.length !=0)" class="text-center">
+                        <div class="col-lg-12 pad-a-1">
+                            <strong>Conversation is not yet started</strong>
+                        </div>
+                    </div>
+
+                    <div ng-if="messageList && messageList.length !=0" class="message-box" ng-repeat="mess in messageList" ng-class="mess.user.userId == user.userId ? 'left-img pull-left' :'right-img pull-right'">
+                        <div class="picture">
+                            <img src="http://wcdn1.dataknet.com/static/resources/icons/set56/ed85b9d.png" />
+                        </div>
+                        <div class="message">
+                            <span>{{mess.user.userName}}</span>
+                            <p>{{mess.message}}</p>
+                            <span class="pull-right">{{mess.addedDateTime | date:'shortTime'}}</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="enter-message box">
+                
+                <input type="text" autocomplete="off" class="form-control" ng-disabled="connectionState !=1" placeholder="{{connectionState ==1 ? 'Enter message and press enter..' : 'Connection Lost'}}" ng-enter="sendMessage()" ng-model="message"  name="name" required />
+                <div ng-show="whoIsTyping" class="text-center"><strong>{{whoIsTyping}} is typing...</strong></div>
+            </div>
+
+       </div>
+    </div>
+
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+         
+        <div class="pad-a-1 ">
+            <div class="text-center">
+                    <div class="col-lg-12 pad-a-1 background-yellow ">
+                        <strong>White Board</strong>
+                        <button class="btn btn-larger btn-success" ng-click="clearCanvas()">
+                            Clear Board
+                        </button>
+                    </div>
+
+                
+            </div>
+            
+            <div>
+                <canvas class="box" lastxcor="canvasDraw.lastX" lastycor="canvasDraw.lastY"
+                        currxcor="canvasDraw.currentX" currycor="canvasDraw.currentY" id="canvas" width="340" height="470" drawing></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
