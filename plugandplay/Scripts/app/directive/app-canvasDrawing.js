@@ -1,5 +1,5 @@
 ﻿
-app.directive("drawing", ['signalrService', function (signalrService) {
+app.directive("drawing", ['signalrService', '$rootScope', function (signalrService, $rootScope) {
     return {
         restrict: "A",
         scope: {
@@ -7,11 +7,11 @@ app.directive("drawing", ['signalrService', function (signalrService) {
             lastycor: '=',
             currxcor: '=',
             currycor: '=',
-            color:'='
+            usercolor:'='
         },
         link: function (scope, element) {
             var ctx = element[0].getContext('2d');
-            ctx.strokeStyle = scope.color;
+            
             // variable that decides if something should be drawn on mousemove
             var drawing = false;
 
@@ -38,7 +38,7 @@ app.directive("drawing", ['signalrService', function (signalrService) {
                         currentX = event.offsetX;
                         currentY = event.offsetY;
 
-                        draw(lastX, lastY, currentX, currentY);
+                        draw(lastX, lastY, currentX, currentY,false,$rootScope.user.userColor);
 
                         // set current coordinates to last one
                         lastX = currentX;
@@ -59,7 +59,9 @@ app.directive("drawing", ['signalrService', function (signalrService) {
 
 
 
-            function draw(lX, lY, cX, cY, flag) {
+            function draw(lX, lY, cX, cY, flag,color) {
+
+                ctx.strokeStyle = color;
 
                 ctx.beginPath();
                 if (lX == 0 && lY == 0 && cX == 0 && cY == 0) {
@@ -78,6 +80,7 @@ app.directive("drawing", ['signalrService', function (signalrService) {
                 // draw it
                 ctx.stroke();
 
+                //flag whether invoked from signalr or native
                 if (!flag) {
                     signalrService.invoke('appHub', 'draw', {
                         lastX: lX,
@@ -92,7 +95,7 @@ app.directive("drawing", ['signalrService', function (signalrService) {
 
             scope.$watchGroup(['lastxcor', 'lastycor', 'currxcor', 'currycor'], function (newValues, oldValues, scope) {
 
-                draw(newValues[0], newValues[1], newValues[2], newValues[3], true)
+                draw(newValues[0], newValues[1], newValues[2], newValues[3], true, scope.usercolor);
 
             })
         }

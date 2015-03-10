@@ -32,5 +32,7 @@ namespace plugandplay.Models
         public string currentX { get; set; }
 
         public string currentY { get; set; }
+
+        public boUser user { get; set; }
     }
 }

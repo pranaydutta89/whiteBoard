@@ -76,8 +76,9 @@ namespace plugandplay.hubs
 
         public void draw(boDrawCanvas obj)
         {
-            boUser objLogin = utils.getCurrentUser(Context.ConnectionId);
-            Clients.OthersInGroup(objLogin.groupName).drawCanvas(obj);
+            boUser objUser = utils.getCurrentUser(Context.ConnectionId);
+            obj.user = objUser;
+            Clients.OthersInGroup(objUser.groupName).drawCanvas(obj);
         }
 
 
