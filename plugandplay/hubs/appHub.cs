@@ -41,6 +41,11 @@ namespace plugandplay.hubs
 
         }
 
+        public void changeUserOnlineStatus()
+        {
+
+        }
+
         public void getOnlineUsers()
         {
             List<boUser> objLogin = (from data in utils.onlineUserData
