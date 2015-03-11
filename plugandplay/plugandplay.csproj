@@ -194,9 +194,7 @@
     <Content Include="Scripts\app\services\app-userService.js" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Properties\PublishProfiles\peep.pubxml" />
-    <None Include="Properties\PublishProfiles\whiteboard13.pubxml" />
     <None Include="Properties\PublishProfiles\whiteboard28.pubxml" />
-    <None Include="Properties\PublishProfiles\whiteBoardAnurag.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />
