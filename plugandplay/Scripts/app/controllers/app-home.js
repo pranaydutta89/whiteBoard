@@ -36,8 +36,12 @@
     $rootScope.$on('windowFocus', function () {
         unnreadMessages = 0;
         document.title = config.title;
+        signalrService.invoke('appHub', 'changeUserOnlineStatus',  1);//online
     });
 
+    $rootScope.$on('windowBlur', function () {
+        signalrService.invoke('appHub', 'changeUserOnlineStatus', 3);//away
+    });
 
     signalrService.on('appHub', 'sendMessageClient', function (messageData) {
 

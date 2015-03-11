@@ -18,6 +18,7 @@ namespace plugandplay.Models
         public Guid userId { get; set; }
         public string userName { get; set; }
 
+        public int onlineStatus { get; set; }
 
         public string groupName { get; set; }
 

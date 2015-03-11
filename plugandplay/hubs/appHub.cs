@@ -15,7 +15,7 @@ namespace plugandplay.hubs
         public override Task OnDisconnected(bool stop)
         {
 
-             if (utils.onlineUserData.ContainsKey(Context.ConnectionId))
+             if (user.onlineUserData.ContainsKey(Context.ConnectionId))
                 offlineUsers(Context.ConnectionId);
             return base.OnDisconnected(stop);
         }
@@ -23,33 +23,37 @@ namespace plugandplay.hubs
         public bool checkUserOnlineStatus()
         {
             
-            return utils.onlineUserData.ContainsKey(Context.ConnectionId); 
+            return user.onlineUserData.ContainsKey(Context.ConnectionId); 
             
         }
 
         public boUser addUser(boUser login)
         {
-            if (!utils.onlineUserData.ContainsKey(Context.ConnectionId))
+            if (!user.onlineUserData.ContainsKey(Context.ConnectionId))
             {
                 login.addedDateTime = utils.currentDateTime();
                 login.userId = Guid.NewGuid();
                 login.userColor = utils.getuserColor(login.userId);
-                utils.onlineUserData.Add(Context.ConnectionId, login);
+                login.onlineStatus = 1;//online
+                user.onlineUserData.Add(Context.ConnectionId, login);
             }
             Groups.Add(Context.ConnectionId, login.groupName);
             return login;
 
         }
 
-        public void changeUserOnlineStatus()
+        public void changeUserOnlineStatus(int onlineStatus)
         {
-
+            boUser objUser =user.getCurrentUser(Context.ConnectionId);
+            objUser.onlineStatus =onlineStatus;
+            user.changeUserObject(Context.ConnectionId, objUser);
+            getOnlineUsers();
         }
 
         public void getOnlineUsers()
         {
-            List<boUser> objLogin = (from data in utils.onlineUserData
-                                      where data.Value.groupName == utils.getCurrentUser(Context.ConnectionId).groupName
+            List<boUser> objLogin = (from data in user.onlineUserData
+                                      where data.Value.groupName == user.getCurrentUser(Context.ConnectionId).groupName
                                       select data.Value).ToList();
             Clients.Group(objLogin[0].groupName).getOnlineUserList(objLogin);
         }
@@ -57,14 +61,14 @@ namespace plugandplay.hubs
         public void offlineUsers(string connectionId)
         {
             
-            string groupName = utils.getCurrentUser(connectionId).groupName;
+            string groupName = user.getCurrentUser(connectionId).groupName;
 
-            if (utils.onlineUserData.ContainsKey(Context.ConnectionId))
+            if (user.onlineUserData.ContainsKey(Context.ConnectionId))
             {
-                utils.onlineUserData.Remove(Context.ConnectionId);
+                user.onlineUserData.Remove(Context.ConnectionId);
             }
 
-            Clients.Group(groupName).getOnlineUserList((from data in utils.onlineUserData
+            Clients.Group(groupName).getOnlineUserList((from data in user.onlineUserData
                                                         where data.Value.groupName == groupName
                                                         select data.Value).ToList());
         }
@@ -73,7 +77,7 @@ namespace plugandplay.hubs
         public void sendMessage(boChatMessage objMessage)
         {
         
-            objMessage.user = utils.getCurrentUser(Context.ConnectionId);
+            objMessage.user = user.getCurrentUser(Context.ConnectionId);
             objMessage.addedDateTime = utils.currentDateTime();
             Clients.Group(objMessage.user.groupName).sendMessageClient(objMessage);
         }
@@ -81,7 +85,7 @@ namespace plugandplay.hubs
 
         public void draw(boDrawCanvas obj)
         {
-            boUser objUser = utils.getCurrentUser(Context.ConnectionId);
+            boUser objUser = user.getCurrentUser(Context.ConnectionId);
             obj.user = objUser;
             Clients.OthersInGroup(objUser.groupName).drawCanvas(obj);
         }
@@ -89,7 +93,7 @@ namespace plugandplay.hubs
 
         public void typingSignal()
         {
-            boUser objLogin = utils.getCurrentUser(Context.ConnectionId);
+            boUser objLogin = user.getCurrentUser(Context.ConnectionId);
             Clients.OthersInGroup(objLogin.groupName).typingSignalClient(objLogin.userName);
         }
 

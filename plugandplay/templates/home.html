@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="col-md-2 col-lg-3">
+    <div class="col-md-3 col-lg-3">
         <div class="pad-a-1">
 
             <div class="box">
@@ -10,13 +10,26 @@
                 </div>
 
                 <div>
-                    <table>
+                    <table class="table table-stripped table-responsive">
+                        <thead class="hidden-xs">
+                            <tr>
+                                <th>Name</th>
+                                <th>Color</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
                         <tr ng-repeat="user in userList">
-                            <td ng-style="{'background-color':user.userColor}" title="Joined at: {{user.addedDateTime | date:'shortTime'}}">
+                            <td title="Joined at: {{user.addedDateTime | date:'shortTime'}}">
                                 <span class="pad-a-1" ng-bind="user.userName">
 
                                 </span>
 
+                            </td>
+                            <td title="User board color">
+                                <div ng-style="{'background-color':user.userColor}" class="flag-box"></div>
+                            </td>
+                            <td title="{{user.onlineStatus==1 ? 'Online' : 'Away'}}">
+                                <div ng-class="user.onlineStatus==1 ? 'background-green' : 'background-yellow'" class="flag-box"></div>
                             </td>
                         </tr>
                     </table>
@@ -28,7 +41,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-5">
+    <div class="col-md-5 col-lg-5">
         <div class="pad-a-1">
             <div class="text-center">
                 <div class="col-lg-12 pad-a-1 background-yellow ">
