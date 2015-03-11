@@ -1,5 +1,6 @@
 ﻿app.service('eventService', ['$rootScope', 'errorService', function ($rootScope, errorService) {
 
+
     angular.element(window).bind('blur', function () {
         $rootScope.isWindowFocused = false;
         $rootScope.$emit('windowBlur');
