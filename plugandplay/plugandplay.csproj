@@ -185,9 +185,9 @@
     <Content Include="Scripts\app\controllers\app-master.js" />
     <Content Include="Scripts\app\directive\app-canvasDrawing.js" />
     <Content Include="Scripts\app\directive\app-ngenter.js" />
-    <Content Include="Scripts\app\factory\interceptor.js" />
+    <Content Include="Scripts\app\factory\app-httpInterceptor.js" />
     <Content Include="Scripts\app\router\app-router.js" />
-    <Content Include="Scripts\app\services\apiService.js" />
+    <Content Include="Scripts\app\services\app-apiService.js" />
     <Content Include="Scripts\app\services\app-errorService.js" />
     <Content Include="Scripts\app\services\app-eventService.js" />
     <Content Include="Scripts\app\services\app-signalr.js" />
@@ -195,7 +195,7 @@
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Properties\PublishProfiles\peep.pubxml" />
     <None Include="Properties\PublishProfiles\whiteboard28.pubxml" />
-    <Content Include="Scripts\app\directive\app.groupName.js" />
+    <Content Include="Scripts\app\directive\app-groupName.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />
@@ -227,7 +227,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="controller\userController.cs" />
+    <Compile Include="Controllers\userController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -255,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Scripts\app\filter\" />
   </ItemGroup>
   <PropertyGroup>

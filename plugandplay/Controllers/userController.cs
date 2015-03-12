@@ -13,7 +13,7 @@ namespace plugandplay.controller
         {
             return (from data in user.onlineUserData
                     where data.Value.groupName == groupName
-                    select data).ToList().Count() == 0 ? false : true;
+                    select data).ToList().Count() == 0 ? true : false;
         }
     }
 }
