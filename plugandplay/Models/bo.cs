@@ -20,10 +20,19 @@ namespace plugandplay.Models
 
         public int onlineStatus { get; set; }
 
-        public string groupName { get; set; }
-
         public string userColor { get; set; }
         public DateTime addedDateTime { get; set; }
+
+        public boGroup inGroup { get; set; }
+    }
+
+
+    public class boGroup
+    {
+        
+        public string groupName { get; set; }
+
+        public DateTime createdDateTime { get; set; }
     }
 
     public class boDrawCanvas

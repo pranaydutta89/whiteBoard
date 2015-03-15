@@ -5,15 +5,16 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using plugandplay.logic;
+using plugandplay.Models;
 namespace plugandplay.controller
 {
     public class userController : ApiController
     {
-        public bool getGroupNameStatus(string groupName)
+        public boGroup getGroupNameStatus(string groupName)
         {
             return (from data in user.onlineUserData
-                    where data.Value.groupName == groupName
-                    select data).ToList().Count() == 0 ? true : false;
+                    where data.Value.inGroup.groupName == groupName
+                    select data.Value.inGroup).SingleOrDefault();
         }
     }
 }

@@ -29,7 +29,9 @@ namespace plugandplay
                             "~/Scripts/app/controllers/app-*",
                             "~/Scripts/app/directive/app-*",
                             "~/Scripts/app/factory/app-*",
-                            "~/Scripts/scrollglue.js"
+                            "~/Scripts/app/filter/app-*",
+                            "~/Scripts/scrollglue.js",
+                            "~/Scripts/moment.js"
                            ));
 
 

@@ -31,13 +31,14 @@ namespace plugandplay.hubs
         {
             if (!user.onlineUserData.ContainsKey(Context.ConnectionId))
             {
-                login.addedDateTime = utils.currentDateTime();
+                login.addedDateTime = utils.currentDateTime;
                 login.userId = Guid.NewGuid();
                 login.userColor = utils.getuserColor(login.userId);
                 login.onlineStatus = 1;//online
+                login.inGroup.createdDateTime = utils.currentDateTime;
                 user.onlineUserData.Add(Context.ConnectionId, login);
             }
-            Groups.Add(Context.ConnectionId, login.groupName);
+            Groups.Add(Context.ConnectionId, login.inGroup.groupName);
             return login;
 
         }
@@ -53,15 +54,15 @@ namespace plugandplay.hubs
         public void getOnlineUsers()
         {
             List<boUser> objLogin = (from data in user.onlineUserData
-                                      where data.Value.groupName == user.getCurrentUser(Context.ConnectionId).groupName
+                                      where data.Value.inGroup.groupName == user.getCurrentUser(Context.ConnectionId).inGroup.groupName
                                       select data.Value).ToList();
-            Clients.Group(objLogin[0].groupName).getOnlineUserList(objLogin);
+            Clients.Group(objLogin[0].inGroup.groupName).getOnlineUserList(objLogin);
         }
 
         public void offlineUsers(string connectionId)
         {
             
-            string groupName = user.getCurrentUser(connectionId).groupName;
+            string groupName = user.getCurrentUser(connectionId).inGroup.groupName;
 
             if (user.onlineUserData.ContainsKey(Context.ConnectionId))
             {
@@ -69,7 +70,7 @@ namespace plugandplay.hubs
             }
 
             Clients.Group(groupName).getOnlineUserList((from data in user.onlineUserData
-                                                        where data.Value.groupName == groupName
+                                                        where data.Value.inGroup.groupName == groupName
                                                         select data.Value).ToList());
         }
 
@@ -78,8 +79,8 @@ namespace plugandplay.hubs
         {
         
             objMessage.user = user.getCurrentUser(Context.ConnectionId);
-            objMessage.addedDateTime = utils.currentDateTime();
-            Clients.Group(objMessage.user.groupName).sendMessageClient(objMessage);
+            objMessage.addedDateTime = utils.currentDateTime;
+            Clients.Group(objMessage.user.inGroup.groupName).sendMessageClient(objMessage);
         }
 
 
@@ -87,14 +88,14 @@ namespace plugandplay.hubs
         {
             boUser objUser = user.getCurrentUser(Context.ConnectionId);
             obj.user = objUser;
-            Clients.OthersInGroup(objUser.groupName).drawCanvas(obj);
+            Clients.OthersInGroup(objUser.inGroup.groupName).drawCanvas(obj);
         }
 
 
         public void typingSignal()
         {
             boUser objLogin = user.getCurrentUser(Context.ConnectionId);
-            Clients.OthersInGroup(objLogin.groupName).typingSignalClient(objLogin.userName);
+            Clients.OthersInGroup(objLogin.inGroup.groupName).typingSignalClient(objLogin.userName);
         }
 
     }

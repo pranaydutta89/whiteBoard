@@ -7,6 +7,7 @@ app.service('userService', ['signalrService', '$q', '$modal', '$rootScope', func
         var def = $q.defer();
         signalrService.invoke('appHub', 'checkUserOnlineStatus').then(function (userStatus) {
             if (!userStatus || $rootScope.user) {
+                $rootScope.siteIsLoading =true; //initally i will be undefined then true should hide the loading
                 var modalInstance = $modal.open({
                     templateUrl: 'templates/user.html',
                     size: 'lg',

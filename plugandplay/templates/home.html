@@ -74,8 +74,9 @@
             </div>
 
             <div class="enter-message box">
-                
-                <input type="text" autocomplete="off" class="form-control" ng-disabled="connectionState !=1" placeholder="{{connectionState ==1 ? 'Enter message and press enter..' : 'Connection Lost'}}" ng-enter="sendMessage()" ng-model="message" ng-model-options="{debounce:350}"  name="name" required />
+                <form ng-submit="sendMessage()">
+                    <input type="text" autocomplete="off" class="form-control" ng-disabled="connectionState !=1" placeholder="{{connectionState ==1 ? 'Enter message and press enter..' : 'Connection Lost'}}"  ng-model="message" ng-model-options="{debounce:350}" name="name" required />
+                </form>
                 <div ng-show="whoIsTyping" class="text-center"><strong>{{whoIsTyping}} is typing...</strong></div>
             </div>
 

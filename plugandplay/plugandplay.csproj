@@ -170,6 +170,7 @@
     <Content Include="Content\css\_helpers.css" />
     <Content Include="Content\css\_media.css" />
     <Content Include="Content\css\_spinner.css" />
+    <Content Include="Content\img\white-board-template.jpg" />
     <Content Include="Default.aspx" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-ui-router.js" />
@@ -186,6 +187,7 @@
     <Content Include="Scripts\app\directive\app-canvasDrawing.js" />
     <Content Include="Scripts\app\directive\app-ngenter.js" />
     <Content Include="Scripts\app\factory\app-httpInterceptor.js" />
+    <Content Include="Scripts\app\filter\app-fromNow.js" />
     <Content Include="Scripts\app\router\app-router.js" />
     <Content Include="Scripts\app\services\app-apiService.js" />
     <Content Include="Scripts\app\services\app-errorService.js" />
@@ -202,6 +204,10 @@
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\scrollglue.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="favicon.ico" />
@@ -255,7 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\app\filter\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

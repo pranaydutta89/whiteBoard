@@ -61,12 +61,12 @@ function signalrService(configuration, $log, $timeout, $q, $rootScope) {
         log('SignalR error: ' + error)
     });
 
-
-    $(signalRhubs).bind("onDisconnect", function (e, data) {
+    signalRhubs.received(function () {
         $timeout(function () {
-            log('Signalr Connection dead.')
-        }, 10000);
+            $rootScope.$emit('signalrTransportState', 'received');
+        }, 400);
     });
+
 
     this.getCurrentState = function () {
         return currentState;
@@ -91,25 +91,25 @@ function signalrService(configuration, $log, $timeout, $q, $rootScope) {
                 hubProxy.invoke(serverFunction, paramObject).done(function (data) {
                     
                     def.resolve(data || null);
-                    emitRecieve();
+                   
                     
                 }).fail(function (error) {
                     
                    log('SignalR error: ' + error)
                     def.reject();
-                    emitRecieve();
+                  
                 });
             }
             else {
                 hubProxy.invoke(serverFunction).done(function (data) {
                     
                     def.resolve(data || null);
-                    emitRecieve();
+
                 }).fail(function (error) {
                     
                     log('SignalR error: ' + error)
                     def.reject();
-                    emitRecieve();
+                   
                 });
             }
         }).fail(function () {
@@ -119,11 +119,7 @@ function signalrService(configuration, $log, $timeout, $q, $rootScope) {
         return def.promise;
     }
 
-    function emitRecieve() {
-        $timeout(function () {
-            $rootScope.$emit('signalrTransportState', 'received');
-        }, 400);
-    }
+    
 
     this.on = function (hubName, clientSubscribeFunction, func) {
         var hubProxy = signalRhubs.createHubProxy(hubName)
